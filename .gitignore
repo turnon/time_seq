@@ -1,0 +1,6 @@
+*.gem
+*.swp
+lib/**/*.swp
+test/*.swp
+test/**/*.swp
+/Gemfile.lock
