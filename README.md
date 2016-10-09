@@ -1,8 +1,6 @@
 # TimeSeq
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/time_seq`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A well-understood interface to build lazy enumerator for iterating time points
 
 ## Installation
 
@@ -22,15 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'time_seq'
 
-## Development
+seq = TimeSeq.new from: Time.gm(2016, 'nov'), step: 1.hour, to: Time.gm(2016, 'nov', 1, 5)
+=> #<TimeSeq:19952030 @from=2016-11-01 00:00:00 UTC, @step=1 hour, @to=2016-11-01 05:00:00 UTC>
+seq.to_a
+=> [2016-11-01 00:00:00 UTC,
+    2016-11-01 01:00:00 UTC,
+    2016-11-01 02:00:00 UTC,
+    2016-11-01 03:00:00 UTC,
+    2016-11-01 04:00:00 UTC,
+    2016-11-01 05:00:00 UTC]
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/time_seq.
-
+# Ending is not required. It can do whatever a Enumerator::Lazy can do
+infinite_seq = TimeSeq.new from: Time.gm(2016, 'dec', 1, 7, 30), step: 1.day
+=> #<TimeSeq:19403900 @from=2016-12-01 07:30:00 UTC, @step=1 day>
+infinite_seq.first(10)
+=> [2016-12-01 07:30:00 UTC,
+    2016-12-02 07:30:00 UTC,
+    2016-12-03 07:30:00 UTC,
+    2016-12-04 07:30:00 UTC,
+    2016-12-05 07:30:00 UTC,
+    2016-12-06 07:30:00 UTC,
+    2016-12-07 07:30:00 UTC,
+    2016-12-08 07:30:00 UTC,
+    2016-12-09 07:30:00 UTC,
+    2016-12-10 07:30:00 UTC]
+```

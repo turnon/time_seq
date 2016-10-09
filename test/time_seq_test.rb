@@ -12,6 +12,13 @@ class TimeSeqTest < Minitest::Test
     end
   end
 
+  def test_inspect
+    ts = TimeSeq.new from: Time.gm(2016), step: 1.day
+    assert_match /#<TimeSeq:.*from=2016.*step=1 day.*>/, ts.inspect
+    ts_1 = TimeSeq.new from: Time.gm(2016), step: 30.minute, to: Time.gm(2017)
+    assert_match /#<TimeSeq:.*from=2016.*step=30 minutes.*to=2017.*>/, ts_1.inspect
+  end
+
   def test_head
     ts = TimeSeq.new from: start, step: 1.second
     assert_equal start, ts.next

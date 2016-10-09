@@ -9,9 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["ken"]
   spec.email         = ["block24block@gmail.com"]
 
-  spec.summary       = %q{generate a (infinite) time sequence }
-  #spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{generate a time sequence, which may be infinite}
+  spec.description   = %q{a well-understood interface to build lazy enumerator for iterating time points}
   spec.homepage      = "https://github.com/turnon/time_seq"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

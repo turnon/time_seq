@@ -8,9 +8,11 @@ class TimeSeq < DelegateClass(Enumerator::Lazy)
     private :init
 
     def new(opt={})
-      init(nil).instance_eval do
-        extract opt
-        build_enum
+      init(nil).tap do |time_seq|
+	time_seq.instance_eval do
+          extract opt
+          build_enum
+        end
       end
     end
   end
