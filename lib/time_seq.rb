@@ -5,11 +5,12 @@ class TimeSeq < DelegateClass(Enumerator::Lazy)
   class << self
 
     alias_method :init, :new
+    private :init
 
     def new(opt={})
       init(nil).instance_eval do
-	extract opt
-	build_enum
+        extract opt
+        build_enum
       end
     end
   end
@@ -39,7 +40,7 @@ class TimeSeq < DelegateClass(Enumerator::Lazy)
       loop do
         yielder << time_point
         time_point = step.since time_point
-	break if to and time_point > to
+        break if to and time_point > to
       end
     end.lazy
     __setobj__ @e
