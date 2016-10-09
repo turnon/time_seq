@@ -7,7 +7,7 @@ class TimeSeqTest < Minitest::Test
 
   def test_it_respond_to_enum_methods
     ts = TimeSeq.new
-    Enumerable.instance_methods.each do |method|
+    Enumerator::Lazy.instance_methods.each do |method|
       assert_respond_to ts, method
     end
   end
