@@ -1,3 +1,4 @@
+require 'time_seq/version'
 require 'active_support/core_ext/integer/time'
 require 'forwardable'
 
