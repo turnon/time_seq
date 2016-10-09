@@ -1,12 +1,17 @@
-require 'time_seq/version'
 require 'active_support/core_ext/integer/time'
-require 'forwardable'
 
-class TimeSeq
+class TimeSeq < DelegateClass(Enumerator::Lazy)
 
-  def initialize(opt = {})
-    extract opt
-    build_enum
+  class << self
+
+    alias_method :init, :new
+
+    def new(opt={})
+      init(nil).instance_eval do
+	extract opt
+	build_enum
+      end
+    end
   end
 
   Attrs = %w{from step to}.tap do |attrs|
@@ -15,13 +20,6 @@ class TimeSeq
       private attr + '='
     end
   end
-
-  extend Forwardable
-  def_delegators :@e, *(
-    Enumerator.instance_methods(false) |
-    Enumerator::Lazy.instance_methods(false) |
-    Enumerable.instance_methods
-  )
 
   def inspect
     "#<#{self.class}:#{object_id} #{inspect_attrs}>"
@@ -44,6 +42,7 @@ class TimeSeq
 	break if to and time_point > to
       end
     end.lazy
+    __setobj__ @e
   end
 
   def inspect_attrs
@@ -54,3 +53,5 @@ class TimeSeq
   end
 
 end
+
+require 'time_seq/version'
